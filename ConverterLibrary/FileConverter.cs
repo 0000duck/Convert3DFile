@@ -27,7 +27,6 @@
             {
                 streamConverter.Convert(sourceStream, sourceFileFormat, destStream, destFileFormat);
             }
-
         }
 
         private static FileFormat GetFileFormatFromExtension(string fileName)
@@ -40,6 +39,8 @@
                     return FileFormat.Txt;
                 case ".obj":
                     return FileFormat.Obj;
+                case ".stl":
+                    return FileFormat.Stl;
                 default:
                     return FileFormat.Unknown;
             }

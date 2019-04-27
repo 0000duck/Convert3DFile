@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="FileConverter.cs" />
     <Compile Include="MeshConverter\ObjMeshConverter.cs" />
+    <Compile Include="MeshConverter\StlMeshConverter.cs" />
     <Compile Include="Mesh\Face.cs" />
     <Compile Include="Mesh\FaceElement.cs" />
     <Compile Include="Mesh\IMesh.cs" />

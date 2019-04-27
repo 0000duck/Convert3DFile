@@ -4,6 +4,7 @@
     {
         Txt,
         Obj,
+        Stl,
         Unknown
     }
 }

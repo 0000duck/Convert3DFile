@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjMeshConverterTest.cs" />
+    <Compile Include="StlMeshConverterTest.cs" />
     <Compile Include="StreamConverterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

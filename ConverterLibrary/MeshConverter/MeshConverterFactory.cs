@@ -10,6 +10,8 @@
                     return new TxtMeshConverter();
                 case FileFormat.Obj:
                     return new ObjMeshConverter();
+                case FileFormat.Stl:
+                    return new StlMeshConverter();
                 default:
                     return null;
             }
