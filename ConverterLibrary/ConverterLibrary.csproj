@@ -52,6 +52,7 @@
     <Compile Include="MeshConverter\MeshConverterFactory.cs" />
     <Compile Include="MeshConverter\TxtMeshConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

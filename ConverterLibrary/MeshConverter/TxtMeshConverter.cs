@@ -7,32 +7,15 @@
     {
         IMesh IMeshConverter.FromStream(Stream stream)
         {
-            using (StreamReader streamReader = new StreamReader(stream))
+            return new Mesh
             {
-                string content = streamReader.ReadToEnd();
-
-                return new Mesh
-                {
-                    Content = content
-                };
-            }
+                Content = StreamHelper.GetStringFromStream(stream)
+            };
         }
 
         Stream IMeshConverter.ToStream(IMesh mesh)
         {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-
-            if (mesh != null)
-            {
-                writer.Write(mesh.Content);
-            }
-
-
-            writer.Flush();
-            stream.Position = 0;
-
-            return stream;
+            return StreamHelper.GetStreamFromString(mesh?.Content);
         }
     }
 }
