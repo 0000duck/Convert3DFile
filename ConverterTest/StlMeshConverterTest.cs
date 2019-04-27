@@ -85,12 +85,14 @@
             GeometricVertex v2 = new GeometricVertex(2f, 3f, 4f);
             GeometricVertex v3 = new GeometricVertex(8f, -1f, -3f);
 
+            VertexNormal vn = new VertexNormal(1f, 0f, 0f);
+
             mesh.GeometricVertices.AddRange(new[] { v1, v2, v3 });
             mesh.Faces.Add(new Face(new[]
             {
-                new FaceElement(v1, null, null),
-                new FaceElement(v2, null, null),
-                new FaceElement(v3, null, null)
+                new FaceElement(v1, null, vn),
+                new FaceElement(v2, null, vn),
+                new FaceElement(v3, null, vn)
             }));
 
             return mesh;
@@ -105,13 +107,15 @@
             GeometricVertex v3 = new GeometricVertex(8f, -1f, -3f);
             GeometricVertex v4 = new GeometricVertex(4f, -12f, -3f);
 
+            VertexNormal vn = new VertexNormal(1f, 0f, 0f);
+
             mesh.GeometricVertices.AddRange(new[] { v1, v2, v3, v4 });
             mesh.Faces.Add(new Face(new[]
             {
-                new FaceElement(v1, null, null),
-                new FaceElement(v2, null, null),
-                new FaceElement(v3, null, null),
-                new FaceElement(v4, null, null)
+                new FaceElement(v1, null, vn),
+                new FaceElement(v2, null, vn),
+                new FaceElement(v3, null, vn),
+                new FaceElement(v4, null, vn)
             }));
 
             return mesh;

@@ -69,15 +69,31 @@
             for (int i = 2; i < faceElements.Count; i++)
             {
                 GeometricVertex v3 = faceElements[i].V;
-                yield return new Triangle(v1, v2, v3);
+                VertexNormal vn = FindNormal(v1, v2, v3);
+                yield return new Triangle(vn, v1, v2, v3);
             }
+        }
+
+        private static VertexNormal FindNormal(GeometricVertex v1, GeometricVertex v2, GeometricVertex v3)
+        {
+            float a1 = v2.X - v1.X;
+            float a2 = v2.Y - v1.Y;
+            float a3 = v2.Z - v1.Z;
+            float b1 = v3.X - v1.X;
+            float b2 = v3.Y - v1.Y;
+            float b3 = v3.Z - v1.Z;
+
+            return new VertexNormal(
+                a2 * b3 - a3 * b2,
+                a3 * b1 - a1 * b3,
+                a1 * b2 - a2 * b1);
         }
 
         private static void WriteTriangle(Stream stream, Triangle triangle)
         {
-            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(0f));
-            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(0f));
-            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(0f));
+            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.Vn.I));
+            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.Vn.J));
+            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.Vn.K));
             StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.V1.X));
             StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.V1.Y));
             StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.V1.Z));
