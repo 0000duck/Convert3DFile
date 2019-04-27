@@ -1,11 +1,12 @@
 ﻿namespace ConverterLibrary.MeshConverter
 {
     using System.IO;
+    using ConverterLibrary.Mesh;
 
     internal interface IMeshConverter
     {
-        string FromStream(Stream stream);
+        IMesh FromStream(Stream stream);
 
-        Stream ToStream(string mesh);
+        Stream ToStream(IMesh mesh);
     }
 }

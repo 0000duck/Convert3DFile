@@ -1,22 +1,34 @@
 ﻿namespace ConverterLibrary.MeshConverter
 {
     using System.IO;
+    using ConverterLibrary.Mesh;
 
-    public class TxtMeshConverter : IMeshConverter
+    internal class TxtMeshConverter : IMeshConverter
     {
-        public string FromStream(Stream stream)
+        IMesh IMeshConverter.FromStream(Stream stream)
         {
             using (StreamReader streamReader = new StreamReader(stream))
             {
-                return streamReader.ReadToEnd();
+                string content = streamReader.ReadToEnd();
+
+                return new Mesh
+                {
+                    Content = content
+                };
             }
         }
 
-        public Stream ToStream(string mesh)
+        Stream IMeshConverter.ToStream(IMesh mesh)
         {
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
-            writer.Write(mesh);
+
+            if (mesh != null)
+            {
+                writer.Write(mesh.Content);
+            }
+
+
             writer.Flush();
             stream.Position = 0;
 

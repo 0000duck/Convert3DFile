@@ -2,7 +2,7 @@
 {
     internal class MeshConverterFactory : IMeshConverterFactory
     {
-        public IMeshConverter CreateMeshConverter(FileFormat fileFormat)
+        IMeshConverter IMeshConverterFactory.CreateMeshConverter(FileFormat fileFormat)
         {
             switch (fileFormat)
             {
