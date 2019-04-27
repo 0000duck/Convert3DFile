@@ -32,5 +32,14 @@
         {
             stream.Write(bytes, 0, bytes.Length);
         }
+
+        public static byte[] GetAllBytes(Stream input)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                input.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
     }
 }

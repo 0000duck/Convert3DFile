@@ -2,6 +2,7 @@
 {
     using System.IO;
     using System.Linq;
+    using ConverterLibrary;
     using ConverterLibrary.Mesh;
     using ConverterLibrary.MeshConverter;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +21,7 @@
             Stream stream = meshConverter.ToStream(mesh);
 
             // Assert
-            byte[] bytes = GetAllBytes(stream);
+            byte[] bytes = StreamHelper.GetAllBytes(stream);
             Assert.AreEqual(ComputeExpectedNumberOfBytes(1), bytes.Length);
 
             byte[] numberOfTriangles = bytes.Skip(80).Take(4).ToArray();
@@ -43,7 +44,7 @@
             Stream stream = meshConverter.ToStream(mesh);
 
             // Assert
-            byte[] bytes = GetAllBytes(stream);
+            byte[] bytes = StreamHelper.GetAllBytes(stream);
             Assert.AreEqual(ComputeExpectedNumberOfBytes(2), bytes.Length);
 
             byte[] numberOfTriangles = bytes.Skip(80).Take(4).ToArray();
@@ -119,15 +120,6 @@
             }));
 
             return mesh;
-        }
-
-        public static byte[] GetAllBytes(Stream input)
-        {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                input.CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
         }
     }
 }
