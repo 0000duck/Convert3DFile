@@ -27,5 +27,10 @@
 
             return stream;
         }
+
+        public static void WriteBytes(Stream stream, byte[] bytes)
+        {
+            stream.Write(bytes, 0, bytes.Length);
+        }
     }
 }
