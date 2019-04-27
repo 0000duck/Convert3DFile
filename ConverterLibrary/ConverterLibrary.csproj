@@ -43,8 +43,12 @@
   <ItemGroup>
     <Compile Include="FileConverter.cs" />
     <Compile Include="MeshConverter\ObjMeshConverter.cs" />
+    <Compile Include="Mesh\Face.cs" />
     <Compile Include="Mesh\IMesh.cs" />
     <Compile Include="Mesh\Mesh.cs" />
+    <Compile Include="Mesh\GeometricVertex.cs" />
+    <Compile Include="Mesh\TextureVertex.cs" />
+    <Compile Include="Mesh\VertexNormal.cs" />
     <Compile Include="StreamConverter.cs" />
     <Compile Include="FileFormat.cs" />
     <Compile Include="IStreamConverter.cs" />
