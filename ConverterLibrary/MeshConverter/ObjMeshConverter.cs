@@ -36,7 +36,7 @@
             throw new NotSupportedException();
         }
 
-        private void ProcessLine(string[] lineParts, Mesh mesh)
+        private static void ProcessLine(string[] lineParts, Mesh mesh)
         {
             switch (lineParts[0])
             {
