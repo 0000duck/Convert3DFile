@@ -32,45 +32,15 @@
 
         private static void WriteTriangles(Stream stream, IMesh mesh)
         {
-            List<Triangle> triangles = GetTriangles(mesh).ToList();
+            List<Triangle> triangles = mesh.GetTriangles().ToList();
 
             byte[] numberOfTriangles = BitConverter.GetBytes(triangles.Count);
             StreamHelper.WriteBytes(stream, numberOfTriangles);
 
             foreach (Triangle triangle in triangles)
             {
-                WriteTriangle(stream, triangle);
-            }
-        }
-
-        private static IEnumerable<Triangle> GetTriangles(IMesh mesh)
-        {
-            foreach (Face face in mesh.Faces)
-            {
-                foreach (Triangle triangle in GetTriangles(face))
-                {
-                    yield return triangle;
-                }
-            }
-        }
-
-        private static IEnumerable<Triangle> GetTriangles(Face face)
-        {
-            List<FaceElement> faceElements = face.FaceElements.ToList();
-
-            if (faceElements.Count < 3)
-            {
-                yield break;
-            }
-
-            Vertex v1 = faceElements[0].V;
-
-            for (int i = 2; i < faceElements.Count; i++)
-            {
-                Vertex v2 = faceElements[i - 1].V;
-                Vertex v3 = faceElements[i].V;
-                Vector vn = FindNormal(v1, v2, v3);
-                yield return new Triangle(vn, v1, v2, v3);
+                Vector normal = FindNormal(triangle.V1, triangle.V2, triangle.V3);
+                WriteTriangle(stream, triangle, normal);
             }
         }
 
@@ -89,11 +59,11 @@
                 a1 * b2 - a2 * b1);
         }
 
-        private static void WriteTriangle(Stream stream, Triangle triangle)
+        private static void WriteTriangle(Stream stream, Triangle triangle, Vector normal)
         {
-            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.Vn.I));
-            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.Vn.J));
-            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.Vn.K));
+            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(normal.I));
+            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(normal.J));
+            StreamHelper.WriteBytes(stream, BitConverter.GetBytes(normal.K));
             StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.V1.X));
             StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.V1.Y));
             StreamHelper.WriteBytes(stream, BitConverter.GetBytes(triangle.V1.Z));

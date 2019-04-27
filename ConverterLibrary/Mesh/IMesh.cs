@@ -11,5 +11,7 @@
         IEnumerable<Vector> VertexNormals { get; }
 
         IEnumerable<Face> Faces { get; }
+
+        IEnumerable<Triangle> GetTriangles();
     }
 }
