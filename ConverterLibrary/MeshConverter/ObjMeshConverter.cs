@@ -10,10 +10,7 @@
     {
         IMesh IMeshConverter.FromStream(Stream stream)
         {
-            Mesh mesh = new Mesh
-            {
-                Content = "1234"
-            };
+            Mesh mesh = new Mesh();
 
             using (StreamReader streamReader = new StreamReader(stream))
             {

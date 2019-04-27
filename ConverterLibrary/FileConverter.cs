@@ -35,8 +35,6 @@
 
             switch (fileExtension)
             {
-                case ".txt":
-                    return FileFormat.Txt;
                 case ".obj":
                     return FileFormat.Obj;
                 case ".stl":

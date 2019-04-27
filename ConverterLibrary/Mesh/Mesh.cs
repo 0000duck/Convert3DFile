@@ -12,8 +12,6 @@
             Faces = new List<Face>();
         }
 
-        public string Content { get; set; }
-
         IEnumerable<GeometricVertex> IMesh.GeometricVertices => GeometricVertices;
 
         IEnumerable<TextureVertex> IMesh.TextureVertices => TextureVertices;

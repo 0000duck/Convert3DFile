@@ -4,8 +4,6 @@
 
     internal interface IMesh
     {
-        string Content { get; set; }
-
         IEnumerable<GeometricVertex> GeometricVertices { get; }
 
         IEnumerable<TextureVertex> TextureVertices { get; }

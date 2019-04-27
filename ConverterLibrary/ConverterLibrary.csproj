@@ -58,7 +58,6 @@
     <Compile Include="MeshConverter\IMeshConverter.cs" />
     <Compile Include="MeshConverter\IMeshConverterFactory.cs" />
     <Compile Include="MeshConverter\MeshConverterFactory.cs" />
-    <Compile Include="MeshConverter\TxtMeshConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StreamHelper.cs" />
   </ItemGroup>

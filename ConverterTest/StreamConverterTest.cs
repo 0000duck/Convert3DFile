@@ -2,31 +2,49 @@
 {
     using System.IO;
     using ConverterLibrary;
+    using ConverterLibrary.Mesh;
     using ConverterLibrary.MeshConverter;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     [TestClass]
     public class StreamConverterTest
     {
         [TestMethod]
-        public void TxtToTxt()
+        public void Convert()
         {
             // Arrange
-            IStreamConverter streamConverter = new StreamConverter(new MeshConverterFactory());
+            IMesh mesh = Mock.Of<IMesh>();
 
-            Stream inputStream = StreamHelper.GetStreamFromString("TestContent");
-            MemoryStream outputStream = new MemoryStream();
+            Mock<IMeshConverter> objMeshConverterMock = new Mock<IMeshConverter>();
+            objMeshConverterMock.Setup(c => c.FromStream(It.IsAny<Stream>())).Returns(mesh);
+            Mock<IMeshConverter> stlMeshConverterMock = new Mock<IMeshConverter>();
+            stlMeshConverterMock.Setup(c => c.ToStream(mesh)).Returns(StreamHelper.GetStreamFromString("TestContent"));
+
+            Mock<IMeshConverterFactory> meshConverterFactoryMock = new Mock<IMeshConverterFactory>();
+            meshConverterFactoryMock.Setup(m => m.CreateMeshConverter(FileFormat.Obj)).Returns(objMeshConverterMock.Object);
+            meshConverterFactoryMock.Setup(m => m.CreateMeshConverter(FileFormat.Stl)).Returns(stlMeshConverterMock.Object);
+
+            IStreamConverter streamConverter = new StreamConverter(meshConverterFactoryMock.Object);
+
+            Stream sourceStream = new MemoryStream();
+            Stream destStream = new MemoryStream();
 
             // Act
-            streamConverter.Convert(inputStream, FileFormat.Txt, outputStream, FileFormat.Txt);
+            streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl);
 
             // Assert
-            outputStream.Position = 0;
+            meshConverterFactoryMock.Verify(f => f.CreateMeshConverter(FileFormat.Obj));
+            meshConverterFactoryMock.Verify(f => f.CreateMeshConverter(FileFormat.Stl));
 
-            Assert.AreEqual("TestContent", StreamHelper.GetStringFromStream(outputStream));
+            objMeshConverterMock.Verify(c => c.FromStream(sourceStream));
+            stlMeshConverterMock.Verify(c => c.ToStream(mesh));
 
-            inputStream.Dispose();
-            outputStream.Dispose();
+            destStream.Position = 0;
+            Assert.AreEqual("TestContent", StreamHelper.GetStringFromStream(destStream));
+
+            sourceStream.Dispose();
+            destStream.Dispose();
         }
     }
 }
