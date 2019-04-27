@@ -38,6 +38,8 @@
             {
                 case ".txt":
                     return FileFormat.Txt;
+                case ".obj":
+                    return FileFormat.Obj;
                 default:
                     return FileFormat.Unknown;
             }

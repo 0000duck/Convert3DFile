@@ -4,9 +4,9 @@
 
     internal static class StreamHelper
     {
-        public static string GetStringFromStream(Stream outputStream)
+        public static string GetStringFromStream(Stream stream)
         {
-            using (StreamReader streamReader = new StreamReader(outputStream))
+            using (StreamReader streamReader = new StreamReader(stream))
             {
                 return streamReader.ReadToEnd();
             }

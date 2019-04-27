@@ -8,6 +8,8 @@
             {
                 case FileFormat.Txt:
                     return new TxtMeshConverter();
+                case FileFormat.Obj:
+                    return new ObjMeshConverter();
                 default:
                     return null;
             }
