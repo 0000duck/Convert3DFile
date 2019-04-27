@@ -3,9 +3,9 @@
     using System.Diagnostics;
 
     [DebuggerDisplay("({X}, {Y}, {Z})")]
-    internal class GeometricVertex
+    internal class Vertex
     {
-        public GeometricVertex(float x, float y, float z)
+        public Vertex(float x, float y, float z)
         {
             X = x;
             Y = y;

@@ -3,9 +3,9 @@
     using System.Diagnostics;
 
     [DebuggerDisplay("({I}, {J}, {K})")]
-    internal class VertexNormal
+    internal class Vector
     {
-        public VertexNormal(float i, float j, float k)
+        public Vector(float i, float j, float k)
         {
             I = i;
             J = j;

@@ -63,18 +63,18 @@
                 yield break;
             }
 
-            GeometricVertex v1 = faceElements[0].V;
+            Vertex v1 = faceElements[0].V;
 
             for (int i = 2; i < faceElements.Count; i++)
             {
-                GeometricVertex v2 = faceElements[i - 1].V;
-                GeometricVertex v3 = faceElements[i].V;
-                VertexNormal vn = FindNormal(v1, v2, v3);
+                Vertex v2 = faceElements[i - 1].V;
+                Vertex v3 = faceElements[i].V;
+                Vector vn = FindNormal(v1, v2, v3);
                 yield return new Triangle(vn, v1, v2, v3);
             }
         }
 
-        private static VertexNormal FindNormal(GeometricVertex v1, GeometricVertex v2, GeometricVertex v3)
+        private static Vector FindNormal(Vertex v1, Vertex v2, Vertex v3)
         {
             float a1 = v2.X - v1.X;
             float a2 = v2.Y - v1.Y;
@@ -83,7 +83,7 @@
             float b2 = v3.Y - v1.Y;
             float b3 = v3.Z - v1.Z;
 
-            return new VertexNormal(
+            return new Vector(
                 a2 * b3 - a3 * b2,
                 a3 * b1 - a1 * b3,
                 a1 * b2 - a2 * b1);

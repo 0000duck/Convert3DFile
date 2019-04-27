@@ -81,11 +81,11 @@
         {
             Mesh mesh = new Mesh();
 
-            GeometricVertex v1 = new GeometricVertex(0f, 0f, 0f);
-            GeometricVertex v2 = new GeometricVertex(2f, 3f, 4f);
-            GeometricVertex v3 = new GeometricVertex(8f, -1f, -3f);
+            Vertex v1 = new Vertex(0f, 0f, 0f);
+            Vertex v2 = new Vertex(2f, 3f, 4f);
+            Vertex v3 = new Vertex(8f, -1f, -3f);
 
-            VertexNormal vn = new VertexNormal(1f, 0f, 0f);
+            Vector vn = new Vector(1f, 0f, 0f);
 
             mesh.GeometricVertices.AddRange(new[] { v1, v2, v3 });
             mesh.Faces.Add(new Face(new[]
@@ -102,12 +102,12 @@
         {
             Mesh mesh = new Mesh();
 
-            GeometricVertex v1 = new GeometricVertex(0f, 0f, 0f);
-            GeometricVertex v2 = new GeometricVertex(2f, 3f, 4f);
-            GeometricVertex v3 = new GeometricVertex(8f, -1f, -3f);
-            GeometricVertex v4 = new GeometricVertex(4f, -12f, -3f);
+            Vertex v1 = new Vertex(0f, 0f, 0f);
+            Vertex v2 = new Vertex(2f, 3f, 4f);
+            Vertex v3 = new Vertex(8f, -1f, -3f);
+            Vertex v4 = new Vertex(4f, -12f, -3f);
 
-            VertexNormal vn = new VertexNormal(1f, 0f, 0f);
+            Vector vn = new Vector(1f, 0f, 0f);
 
             mesh.GeometricVertices.AddRange(new[] { v1, v2, v3, v4 });
             mesh.Faces.Add(new Face(new[]

@@ -2,17 +2,17 @@
 {
     internal class FaceElement
     {
-        public FaceElement(GeometricVertex v, TextureVertex vt, VertexNormal vn)
+        public FaceElement(Vertex v, TextureVertex vt, Vector vn)
         {
             V = v;
             Vt = vt;
             Vn = vn;
         }
 
-        public GeometricVertex V { get; }
+        public Vertex V { get; }
 
         public TextureVertex Vt { get; }
 
-        public VertexNormal Vn { get; }
+        public Vector Vn { get; }
     }
 }

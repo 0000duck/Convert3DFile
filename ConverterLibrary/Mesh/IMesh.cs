@@ -4,11 +4,11 @@
 
     internal interface IMesh
     {
-        IEnumerable<GeometricVertex> GeometricVertices { get; }
+        IEnumerable<Vertex> GeometricVertices { get; }
 
         IEnumerable<TextureVertex> TextureVertices { get; }
 
-        IEnumerable<VertexNormal> VertexNormals { get; }
+        IEnumerable<Vector> VertexNormals { get; }
 
         IEnumerable<Face> Faces { get; }
     }

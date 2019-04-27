@@ -6,25 +6,25 @@
     {
         public Mesh()
         {
-            GeometricVertices = new List<GeometricVertex>();
+            GeometricVertices = new List<Vertex>();
             TextureVertices = new List<TextureVertex>();
-            VertexNormals = new List<VertexNormal>();
+            VertexNormals = new List<Vector>();
             Faces = new List<Face>();
         }
 
-        IEnumerable<GeometricVertex> IMesh.GeometricVertices => GeometricVertices;
+        IEnumerable<Vertex> IMesh.GeometricVertices => GeometricVertices;
 
         IEnumerable<TextureVertex> IMesh.TextureVertices => TextureVertices;
 
-        IEnumerable<VertexNormal> IMesh.VertexNormals => VertexNormals;
+        IEnumerable<Vector> IMesh.VertexNormals => VertexNormals;
 
         IEnumerable<Face> IMesh.Faces => Faces;
 
-        public List<GeometricVertex> GeometricVertices { get; }
+        public List<Vertex> GeometricVertices { get; }
 
         public List<TextureVertex> TextureVertices { get; }
 
-        public List<VertexNormal> VertexNormals { get; }
+        public List<Vector> VertexNormals { get; }
 
         public List<Face> Faces { get; }
     }

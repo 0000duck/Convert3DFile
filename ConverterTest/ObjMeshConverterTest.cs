@@ -21,7 +21,7 @@
             IMesh mesh = meshConverter.FromStream(stream);
 
             // Assert
-            List<GeometricVertex> geometricVertices = mesh.GeometricVertices.ToList();
+            List<Vertex> geometricVertices = mesh.GeometricVertices.ToList();
             Assert.AreEqual(8, geometricVertices.Count);
             Assert.AreEqual(0.0f, geometricVertices.ElementAt(3).X);
             Assert.AreEqual(1.0f, geometricVertices.ElementAt(3).Y);
@@ -29,7 +29,7 @@
 
             Assert.IsFalse(mesh.TextureVertices.Any());
 
-            List<VertexNormal> vertexNormals = mesh.VertexNormals.ToList();
+            List<Vector> vertexNormals = mesh.VertexNormals.ToList();
             Assert.AreEqual(6, vertexNormals.Count);
             Assert.AreEqual(0.0f, vertexNormals.ElementAt(1).I);
             Assert.AreEqual(0.0f, vertexNormals.ElementAt(1).J);

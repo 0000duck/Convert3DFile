@@ -69,7 +69,7 @@
                 return;
             }
 
-            GeometricVertex geometricVertex = new GeometricVertex(x, y, z);
+            Vertex geometricVertex = new Vertex(x, y, z);
 
             mesh.GeometricVertices.Add(geometricVertex);
         }
@@ -106,7 +106,7 @@
                 return;
             }
 
-            VertexNormal vertexNormal = new VertexNormal(i, j, k);
+            Vector vertexNormal = new Vector(i, j, k);
 
             mesh.VertexNormals.Add(vertexNormal);
         }
@@ -127,15 +127,15 @@
                 string[] referenceNumberParts = linePart.Split('/');
                 if (referenceNumberParts.Length == 3)
                 {
-                    GeometricVertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
+                    Vertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
                     TextureVertex vt = GetExistingVertex(referenceNumberParts[1], mesh.TextureVertices);
-                    VertexNormal vn = GetExistingVertex(referenceNumberParts[2], mesh.VertexNormals);
+                    Vector vn = GetExistingVertex(referenceNumberParts[2], mesh.VertexNormals);
 
                     faceElements.Add(new FaceElement(v, vt, vn));
                 }
                 else if (referenceNumberParts.Length == 1)
                 {
-                    GeometricVertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
+                    Vertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
 
                     faceElements.Add(new FaceElement(v, null, null));
                 }
