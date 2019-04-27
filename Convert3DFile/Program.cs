@@ -1,7 +1,6 @@
 ﻿namespace Convert3DFile
 {
     using System;
-    using System.Diagnostics;
     using System.IO;
     using ConverterLibrary;
 
@@ -37,7 +36,7 @@
             Console.WriteLine($"Source file: {sourceFileFullPath}");
             Console.WriteLine($"Destination file: {destFileFullPath}");
 
-            IFileConverter fileConverter = new FileConverter();
+            FileConverter fileConverter = new FileConverter();
 
             Console.WriteLine("Converting...");
 

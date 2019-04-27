@@ -42,8 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileConverter.cs" />
+    <Compile Include="StreamConverter.cs" />
     <Compile Include="FileFormat.cs" />
-    <Compile Include="IFileConverter.cs" />
+    <Compile Include="IStreamConverter.cs" />
+    <Compile Include="MeshConverter\IMeshConverter.cs" />
+    <Compile Include="MeshConverter\IMeshConverterFactory.cs" />
+    <Compile Include="MeshConverter\MeshConverterFactory.cs" />
+    <Compile Include="MeshConverter\TxtMeshConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

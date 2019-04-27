@@ -2,8 +2,9 @@
 {
     using System;
     using System.IO;
+    using ConverterLibrary.MeshConverter;
 
-    public class FileConverter : IFileConverter
+    public class FileConverter
     {
         public void Convert(string sourceFileName, string destFileName)
         {
@@ -19,12 +20,14 @@
                 throw new InvalidOperationException("Not supported destination file format");
             }
 
-            Convert(sourceFileName, sourceFileFormat, destFileName, destFileFormat);
-        }
+            IStreamConverter streamConverter = new StreamConverter(new MeshConverterFactory());
 
-        private void Convert(string sourceFileName, FileFormat sourceFileFormat, string destFileName, FileFormat destFileFormat)
-        {
-            File.Copy(sourceFileName, destFileName);
+            using (Stream sourceStream = new FileStream(sourceFileName, FileMode.Open))
+            using (FileStream destStream = File.Create(destFileName))
+            {
+                streamConverter.Convert(sourceStream, sourceFileFormat, destStream, destFileFormat);
+            }
+
         }
 
         private static FileFormat GetFileFormatFromExtension(string fileName)
@@ -33,7 +36,7 @@
 
             switch (fileExtension)
             {
-                case "txt":
+                case ".txt":
                     return FileFormat.Txt;
                 default:
                     return FileFormat.Unknown;
