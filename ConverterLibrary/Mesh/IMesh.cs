@@ -15,5 +15,7 @@
         IEnumerable<Triangle> GetTriangles();
 
         float GetVolume();
+
+        float GetSurfaceArea();
     }
 }

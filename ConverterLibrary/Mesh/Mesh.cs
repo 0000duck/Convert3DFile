@@ -41,6 +41,11 @@
                 .Sum());
         }
 
+        float IMesh.GetSurfaceArea()
+        {
+            return (float)((IMesh)this).GetTriangles().Select(GetTriangleArea).Sum();
+        }
+
         public List<Vertex> GeometricVertices { get; }
 
         public List<TextureVertex> TextureVertices { get; }
@@ -77,6 +82,23 @@
             float v213 = p2.X * p1.Y * p3.Z;
             float v123 = p1.X * p2.Y * p3.Z;
             return (1.0f / 6.0f) * (-v321 + v231 + v312 - v132 - v213 + v123);
+        }
+
+        private static double GetTriangleArea(Triangle triangle)
+        {
+            double a = DistanceBetween(triangle.V1, triangle.V2);
+            double b = DistanceBetween(triangle.V2, triangle.V3);
+            double c = DistanceBetween(triangle.V3, triangle.V1);
+            double s = (a + b + c) / 2;
+            return Math.Sqrt(s * (s - a) * (s - b) * (s - c));
+        }
+
+        private static double DistanceBetween(Vertex a, Vertex b)
+        {
+            double dx = a.X - b.X;
+            double dy = a.Y - b.Y;
+            double dz = a.Z - b.Z;
+            return Math.Sqrt(dx * dx + dy * dy + dz * dz);
         }
     }
 }
