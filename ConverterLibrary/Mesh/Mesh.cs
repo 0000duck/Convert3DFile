@@ -46,6 +46,46 @@
             return (float)((IMesh)this).GetTriangles().Select(GetTriangleArea).Sum();
         }
 
+        void IMesh.Translate(float x, float y, float z)
+        {
+            foreach (Vertex vertex in GeometricVertices)
+            {
+                vertex.Translate(x, y, z);
+            }
+        }
+
+        void IMesh.RotateX(float angle)
+        {
+            foreach (Vertex vertex in GeometricVertices)
+            {
+                vertex.RotateX(angle);
+            }
+        }
+
+        void IMesh.RotateY(float angle)
+        {
+            foreach (Vertex vertex in GeometricVertices)
+            {
+                vertex.RotateY(angle);
+            }
+        }
+
+        void IMesh.RotateZ(float angle)
+        {
+            foreach (Vertex vertex in GeometricVertices)
+            {
+                vertex.RotateZ(angle);
+            }
+        }
+
+        void IMesh.Scale(float factor)
+        {
+            foreach (Vertex vertex in GeometricVertices)
+            {
+                vertex.Scale(factor);
+            }
+        }
+
         public List<Vertex> GeometricVertices { get; }
 
         public List<TextureVertex> TextureVertices { get; }

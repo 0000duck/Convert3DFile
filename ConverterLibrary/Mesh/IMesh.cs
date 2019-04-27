@@ -17,5 +17,15 @@
         float GetVolume();
 
         float GetSurfaceArea();
+
+        void Translate(float x, float y, float z);
+
+        void RotateX(float degrees);
+
+        void RotateY(float degrees);
+
+        void RotateZ(float degrees);
+
+        void Scale(float factor);
     }
 }

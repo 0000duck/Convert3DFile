@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using ConverterLibrary;
@@ -13,8 +14,15 @@
                                      "sourceFileName: path of an existing source file\r\n" +
                                      "destFileName: path of a non-existing destination file\r\n" +
                                      "operations:\r\n" +
-                                     "  volume: print the volume of the mesh\r\n" +
-                                     "  surface: print the surface area of the mesh\r\n";
+                                     "  volume\tprint the volume of the mesh\r\n" +
+                                     "  surface\tprint the surface area of the mesh\r\n" +
+                                     "  tx <delta>\ttranslate along x by <delta>\r\n" +
+                                     "  ty <delta>\ttranslate along y by <delta>\r\n" +
+                                     "  tz <delta>\ttranslate along z by <delta>\r\n" +
+                                     "  rx <angle>\trotate around x by <angle> (deg)\r\n" +
+                                     "  ry <angle>\trotate around y by <angle> (deg)\r\n" +
+                                     "  rz <angle>\trotate around z by <angle> (deg)\r\n" +
+                                     "  s <factor>\tscale by <factor>\r\n";
 
         private static void Main(string[] args)
         {
@@ -77,6 +85,69 @@
                         break;
                     case "surface":
                         yield return new CalculateSurfaceAreaOperation(Log);
+                        break;
+                    case "tx":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float tx))
+                        {
+                            yield return new TranslateXOperation(tx, Log);
+                        }
+
+                        break;
+                    case "ty":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float ty))
+                        {
+                            yield return new TranslateYOperation(ty, Log);
+                        }
+
+                        break;
+                    case "tz":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float tz))
+                        {
+                            yield return new TranslateZOperation(tz, Log);
+                        }
+
+                        break;
+                    case "rx":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float rx))
+                        {
+                            yield return new RotateXOperation(rx, Log);
+                        }
+
+                        break;
+                    case "ry":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float ry))
+                        {
+                            yield return new RotateYOperation(ry, Log);
+                        }
+
+                        break;
+                    case "rz":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float rz))
+                        {
+                            yield return new RotateZOperation(rz, Log);
+                        }
+
+                        break;
+                    case "s":
+                        i++;
+                        arg = argsList[i];
+                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float s))
+                        {
+                            yield return new ScaleOperation(s, Log);
+                        }
+
                         break;
                 }
             }

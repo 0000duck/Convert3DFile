@@ -1,20 +1,17 @@
 ﻿namespace ConverterLibrary.MeshOperation
 {
     using System;
+    using System.Globalization;
     using ConverterLibrary.Mesh;
 
-    public class CalculateVolumeOperation : IMeshOperation
+    public class CalculateVolumeOperation : MeshOperationBase
     {
-        private readonly Action<string> log;
+        public CalculateVolumeOperation(Action<string> log) : base(log)
+        { }
 
-        public CalculateVolumeOperation(Action<string> log)
+        public override void Execute(IMesh mesh)
         {
-            this.log = log ?? throw new ArgumentNullException(nameof(log));
-        }
-
-        void IMeshOperation.Execute(IMesh mesh)
-        {
-            log($"Volume: {mesh.GetVolume()}");
+            Log($"Volume: {mesh.GetVolume().ToString("0.00", CultureInfo.InvariantCulture)}");
         }
     }
 }

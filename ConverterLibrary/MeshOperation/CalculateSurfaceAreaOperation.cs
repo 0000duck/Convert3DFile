@@ -1,20 +1,17 @@
 ﻿namespace ConverterLibrary.MeshOperation
 {
     using System;
+    using System.Globalization;
     using ConverterLibrary.Mesh;
 
-    public class CalculateSurfaceAreaOperation : IMeshOperation
+    public class CalculateSurfaceAreaOperation : MeshOperationBase
     {
-        private readonly Action<string> log;
+        public CalculateSurfaceAreaOperation(Action<string> log) : base(log)
+        { }
 
-        public CalculateSurfaceAreaOperation(Action<string> log)
+        public override void Execute(IMesh mesh)
         {
-            this.log = log ?? throw new ArgumentNullException(nameof(log));
-        }
-
-        void IMeshOperation.Execute(IMesh mesh)
-        {
-            log($"Surface area: {mesh.GetSurfaceArea()}");
+            Log($"Surface area: {mesh.GetSurfaceArea().ToString("0.00", CultureInfo.InvariantCulture)}");
         }
     }
 }

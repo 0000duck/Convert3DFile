@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using ConverterLibrary;
     using ConverterLibrary.Mesh;
     using ConverterLibrary.MeshConverter;
@@ -85,19 +84,40 @@
 
             Stream sourceStream = new FileStream(@"Resources\cube2.obj", FileMode.Open);
             Stream destStream = new MemoryStream();
-            StringBuilder log = new StringBuilder();
+            List<string> logs = new List<string>();
+            void LogAction(string s) => logs.Add(s);
 
             IEnumerable<IMeshOperation> meshOperations = new IMeshOperation[]
             {
-                new CalculateVolumeOperation(s => log.Append(s + "\r\n")),
-                new CalculateSurfaceAreaOperation(s => log.Append(s + "\r\n"))
+                new CalculateVolumeOperation(LogAction),
+                new CalculateSurfaceAreaOperation(LogAction),
+                new TranslateXOperation(1f, LogAction),
+                new TranslateYOperation(-2f, LogAction),
+                new TranslateZOperation(3f, LogAction),
+                new RotateXOperation(30f, LogAction),
+                new RotateYOperation(-15f, LogAction),
+                new RotateZOperation(5f, LogAction),
+                new ScaleOperation(2f, LogAction),
+                new CalculateVolumeOperation(LogAction),
+                new CalculateSurfaceAreaOperation(LogAction)
             };
 
             // Act
             streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl, meshOperations);
 
             // Assert
-            Assert.AreEqual("Volume: 8\r\nSurface area: 24\r\n", log.ToString());
+            Assert.AreEqual(11, logs.Count);
+            Assert.AreEqual("Volume: 8.00", logs[0]);
+            Assert.AreEqual("Surface area: 24.00", logs[1]);
+            Assert.AreEqual("Translation X by 1.00 done", logs[2]);
+            Assert.AreEqual("Translation Y by -2.00 done", logs[3]);
+            Assert.AreEqual("Translation Z by 3.00 done", logs[4]);
+            Assert.AreEqual("Rotation X by 30.00 done", logs[5]);
+            Assert.AreEqual("Rotation Y by -15.00 done", logs[6]);
+            Assert.AreEqual("Rotation Z by 5.00 done", logs[7]);
+            Assert.AreEqual("Scaling by 2.00 done", logs[8]);
+            Assert.AreEqual("Volume: 64.00", logs[9]);
+            Assert.AreEqual("Surface area: 96.00", logs[10]);
 
             sourceStream.Dispose();
             destStream.Dispose();

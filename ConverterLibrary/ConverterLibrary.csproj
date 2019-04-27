@@ -47,6 +47,14 @@
     <Compile Include="MeshConverter\ObjMeshConverter.cs" />
     <Compile Include="MeshConverter\StlMeshConverter.cs" />
     <Compile Include="MeshOperation\CalculateVolumeOperation.cs" />
+    <Compile Include="MeshOperation\MeshOperationBase.cs" />
+    <Compile Include="MeshOperation\RotateXOperation.cs" />
+    <Compile Include="MeshOperation\RotateYOperation.cs" />
+    <Compile Include="MeshOperation\RotateZOperation.cs" />
+    <Compile Include="MeshOperation\ScaleOperation.cs" />
+    <Compile Include="MeshOperation\TranslateXOperation.cs" />
+    <Compile Include="MeshOperation\TranslateYOperation.cs" />
+    <Compile Include="MeshOperation\TranslateZOperation.cs" />
     <Compile Include="Mesh\Face.cs" />
     <Compile Include="Mesh\FaceElement.cs" />
     <Compile Include="Mesh\IMesh.cs" />
