@@ -13,5 +13,7 @@
         IEnumerable<Face> Faces { get; }
 
         IEnumerable<Triangle> GetTriangles();
+
+        float GetVolume();
     }
 }
