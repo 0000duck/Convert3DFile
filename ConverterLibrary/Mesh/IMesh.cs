@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    internal interface IMesh
+    public interface IMesh
     {
         IEnumerable<Vertex> GeometricVertices { get; }
 

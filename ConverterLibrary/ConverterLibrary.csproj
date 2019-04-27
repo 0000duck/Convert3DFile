@@ -42,8 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileConverter.cs" />
+    <Compile Include="MeshOperation\CalculateSurfaceAreaOperation.cs" />
+    <Compile Include="MeshOperation\IMeshOperation.cs" />
     <Compile Include="MeshConverter\ObjMeshConverter.cs" />
     <Compile Include="MeshConverter\StlMeshConverter.cs" />
+    <Compile Include="MeshOperation\CalculateVolumeOperation.cs" />
     <Compile Include="Mesh\Face.cs" />
     <Compile Include="Mesh\FaceElement.cs" />
     <Compile Include="Mesh\IMesh.cs" />

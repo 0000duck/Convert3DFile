@@ -1,12 +1,20 @@
 ﻿namespace Convert3DFile
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using ConverterLibrary;
+    using ConverterLibrary.MeshOperation;
 
     internal class Program
     {
-        private const string Usage = "You must specify an existing source file name and a non-existing destination file name";
+        private const string Usage = "Usage: Convert3DFile sourceFileName destFileName [operation1 [operation2 [operation3 ...]]]\r\n" +
+                                     "sourceFileName: path of an existing source file\r\n" +
+                                     "destFileName: path of a non-existing destination file\r\n" +
+                                     "operations:\r\n" +
+                                     "  volume: print the volume of the mesh\r\n" +
+                                     "  surface: print the surface area of the mesh\r\n";
 
         private static void Main(string[] args)
         {
@@ -42,7 +50,7 @@
 
             try
             {
-                fileConverter.Convert(sourceFileFullPath, destFileFullPath);
+                fileConverter.Convert(sourceFileFullPath, destFileFullPath, GetMeshOperations(args.Skip(2)));
             }
             catch
             {
@@ -51,6 +59,27 @@
             }
 
             Console.WriteLine("Success.");
+        }
+
+        private static IEnumerable<IMeshOperation> GetMeshOperations(IEnumerable<string> args)
+        {
+            List<string> argsList = args.ToList();
+            void Log(string s) => Console.WriteLine(s);
+
+            for (int i = 0; i < argsList.Count; i++)
+            {
+                string arg = argsList[i];
+
+                switch (arg.ToLower())
+                {
+                    case "volume":
+                        yield return new CalculateVolumeOperation(Log);
+                        break;
+                    case "surface":
+                        yield return new CalculateSurfaceAreaOperation(Log);
+                        break;
+                }
+            }
         }
     }
 }

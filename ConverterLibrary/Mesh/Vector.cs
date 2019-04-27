@@ -3,7 +3,7 @@
     using System.Diagnostics;
 
     [DebuggerDisplay("({I}, {J}, {K})")]
-    internal class Vector
+    public class Vector
     {
         public Vector(float i, float j, float k)
         {

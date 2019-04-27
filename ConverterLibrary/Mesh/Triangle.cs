@@ -1,6 +1,6 @@
 ﻿namespace ConverterLibrary.Mesh
 {
-    internal class Triangle
+    public class Triangle
     {
         public Triangle(Vertex v1, Vertex v2, Vertex v3)
         {

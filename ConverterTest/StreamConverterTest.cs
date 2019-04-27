@@ -1,9 +1,13 @@
 ﻿namespace ConverterTest
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
+    using System.Text;
     using ConverterLibrary;
     using ConverterLibrary.Mesh;
     using ConverterLibrary.MeshConverter;
+    using ConverterLibrary.MeshOperation;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -31,7 +35,7 @@
             Stream destStream = new MemoryStream();
 
             // Act
-            streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl);
+            streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl, Enumerable.Empty<IMeshOperation>());
 
             // Assert
             meshConverterFactoryMock.Verify(f => f.CreateMeshConverter(FileFormat.Obj));
@@ -57,7 +61,7 @@
             Stream destStream = new MemoryStream();
 
             // Act
-            streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl);
+            streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl, Enumerable.Empty<IMeshOperation>());
 
             // Assert
             destStream.Position = 0;
@@ -71,6 +75,32 @@
             sourceStream.Dispose();
             destStream.Dispose();
             expectedStream.Dispose();
+        }
+
+        [TestMethod]
+        public void Convert_MeshOperations()
+        {
+            // Arrange
+            IStreamConverter streamConverter = new StreamConverter(new MeshConverterFactory());
+
+            Stream sourceStream = new FileStream(@"Resources\cube2.obj", FileMode.Open);
+            Stream destStream = new MemoryStream();
+            StringBuilder log = new StringBuilder();
+
+            IEnumerable<IMeshOperation> meshOperations = new IMeshOperation[]
+            {
+                new CalculateVolumeOperation(s => log.Append(s + "\r\n")),
+                new CalculateSurfaceAreaOperation(s => log.Append(s + "\r\n"))
+            };
+
+            // Act
+            streamConverter.Convert(sourceStream, FileFormat.Obj, destStream, FileFormat.Stl, meshOperations);
+
+            // Assert
+            Assert.AreEqual("Volume: 8\r\nSurface area: 24\r\n", log.ToString());
+
+            sourceStream.Dispose();
+            destStream.Dispose();
         }
     }
 }

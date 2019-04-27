@@ -3,7 +3,7 @@
     using System.Diagnostics;
 
     [DebuggerDisplay("({X}, {Y}, {Z})")]
-    internal class Vertex
+    public class Vertex
     {
         public Vertex(float x, float y, float z)
         {

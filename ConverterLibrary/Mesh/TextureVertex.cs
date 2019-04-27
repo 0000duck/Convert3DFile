@@ -3,7 +3,7 @@
     using System.Diagnostics;
 
     [DebuggerDisplay("({U}, {V})")]
-    internal class TextureVertex
+    public class TextureVertex
     {
         public TextureVertex(float u, float v)
         {

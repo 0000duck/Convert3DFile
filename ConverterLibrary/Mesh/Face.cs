@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    internal class Face
+    public class Face
     {
         public IEnumerable<FaceElement> FaceElements { get; }
 

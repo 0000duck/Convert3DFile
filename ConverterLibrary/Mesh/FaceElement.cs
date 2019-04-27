@@ -1,6 +1,6 @@
 ﻿namespace ConverterLibrary.Mesh
 {
-    internal class FaceElement
+    public class FaceElement
     {
         public FaceElement(Vertex v, TextureVertex vt, Vector vn)
         {

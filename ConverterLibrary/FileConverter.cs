@@ -1,12 +1,15 @@
 ﻿namespace ConverterLibrary
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using ConverterLibrary.MeshConverter;
+    using ConverterLibrary.MeshOperation;
 
     public class FileConverter
     {
-        public void Convert(string sourceFileName, string destFileName)
+        public void Convert(string sourceFileName, string destFileName, IEnumerable<IMeshOperation> meshOperations)
         {
             FileFormat sourceFileFormat = GetFileFormatFromExtension(sourceFileName);
             if (sourceFileFormat == FileFormat.Unknown)
@@ -25,7 +28,7 @@
             using (Stream sourceStream = new FileStream(sourceFileName, FileMode.Open))
             using (FileStream destStream = File.Create(destFileName))
             {
-                streamConverter.Convert(sourceStream, sourceFileFormat, destStream, destFileFormat);
+                streamConverter.Convert(sourceStream, sourceFileFormat, destStream, destFileFormat, meshOperations ?? Enumerable.Empty<IMeshOperation>());
             }
         }
 

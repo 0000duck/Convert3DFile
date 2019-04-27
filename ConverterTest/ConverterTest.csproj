@@ -76,7 +76,9 @@
     <Content Include="Resources\cube2.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\shuttle.obj" />
+    <Content Include="Resources\shuttle.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\shuttle.stl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
