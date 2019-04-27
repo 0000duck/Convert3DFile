@@ -128,16 +128,24 @@
                 string linePart = lineParts[i];
 
                 string[] referenceNumberParts = linePart.Split('/');
-                if (referenceNumberParts.Length != 3)
+                if (referenceNumberParts.Length == 3)
+                {
+                    GeometricVertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
+                    TextureVertex vt = GetExistingVertex(referenceNumberParts[1], mesh.TextureVertices);
+                    VertexNormal vn = GetExistingVertex(referenceNumberParts[2], mesh.VertexNormals);
+
+                    faceElements.Add(new FaceElement(v, vt, vn));
+                }
+                else if (referenceNumberParts.Length == 1)
+                {
+                    GeometricVertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
+
+                    faceElements.Add(new FaceElement(v, null, null));
+                }
+                else
                 {
                     return;
                 }
-
-                GeometricVertex v = GetExistingVertex(referenceNumberParts[0], mesh.GeometricVertices);
-                TextureVertex vt = GetExistingVertex(referenceNumberParts[1], mesh.TextureVertices);
-                VertexNormal vn = GetExistingVertex(referenceNumberParts[2], mesh.VertexNormals);
-
-                faceElements.Add(new FaceElement(v, vt, vn));
             }
 
             mesh.Faces.Add(new Face(faceElements));

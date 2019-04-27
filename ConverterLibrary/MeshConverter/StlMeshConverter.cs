@@ -64,10 +64,10 @@
             }
 
             GeometricVertex v1 = faceElements[0].V;
-            GeometricVertex v2 = faceElements[1].V;
 
             for (int i = 2; i < faceElements.Count; i++)
             {
+                GeometricVertex v2 = faceElements[i - 1].V;
                 GeometricVertex v3 = faceElements[i].V;
                 VertexNormal vn = FindNormal(v1, v2, v3);
                 yield return new Triangle(vn, v1, v2, v3);
