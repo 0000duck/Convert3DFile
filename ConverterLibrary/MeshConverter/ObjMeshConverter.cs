@@ -160,6 +160,11 @@
                 return null;
             }
 
+            if (index <= 0)
+            {
+                return null;
+            }
+
             // one based to zero based
             return vertices[index - 1];
         }
