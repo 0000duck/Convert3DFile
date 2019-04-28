@@ -77,6 +77,41 @@
         }
 
         [TestMethod]
+        public void Convert_Rotate_Shuttle()
+        {
+            // Arrange
+            IStreamConverter streamConverter = new StreamConverter(new MeshConverterFactory());
+
+            Stream sourceStream = new FileStream(@"Resources\shuttle.obj", FileMode.Open);
+            Stream destStream = new MemoryStream();
+
+            // Act
+            streamConverter.Convert(
+                sourceStream,
+                FileFormat.Obj,
+                destStream,
+                FileFormat.Stl,
+                new IMeshOperation[]
+                {
+                    new RotateYOperation(-30f, s => { }),
+                    new RotateZOperation(45f, s => { })
+                });
+
+            // Assert
+            destStream.Position = 0;
+            byte[] actualDestBytes = StreamHelper.GetAllBytes(destStream);
+
+            Stream expectedStream = new FileStream(@"Resources\shuttle_rotated.stl", FileMode.Open);
+            byte[] expectedDestBytes = StreamHelper.GetAllBytes(expectedStream);
+
+            CollectionAssert.AreEqual(expectedDestBytes, actualDestBytes);
+
+            sourceStream.Dispose();
+            destStream.Dispose();
+            expectedStream.Dispose();
+        }
+
+        [TestMethod]
         public void Convert_MeshOperations()
         {
             // Arrange

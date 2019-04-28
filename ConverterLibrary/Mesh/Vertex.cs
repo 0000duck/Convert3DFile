@@ -28,53 +28,38 @@
 
         public void RotateX(float angle)
         {
-            double radius = Math.Sqrt(Y * Y + Z * Z);
-            double currentAngle = Math.Acos(Y / radius);
-
-            if (double.IsNaN(currentAngle))
-            {
-                return;
-            }
-
             // deg to rad
-            double newAngle = currentAngle + (Math.PI / 180) * angle;
+            double angleRad = (Math.PI / 180.0) * angle;
 
-            Y = (float)(radius * Math.Cos(newAngle));
-            Z = (float)(radius * Math.Sin(newAngle));
+            float newY = (float)(Math.Cos(angleRad) * Y - Math.Sin(angleRad) * Z);
+            float newZ = (float)(Math.Sin(angleRad) * Y + Math.Cos(angleRad) * Z);
+
+            Y = newY;
+            Z = newZ;
         }
 
         public void RotateY(float angle)
         {
-            double radius = Math.Sqrt(Z * Z + X * X);
-            double currentAngle = Math.Acos(Z / radius);
-
-            if (double.IsNaN(currentAngle))
-            {
-                return;
-            }
-
             // deg to rad
-            double newAngle = currentAngle + (Math.PI / 180) * angle;
+            double angleRad = (Math.PI / 180.0) * angle;
 
-            Z = (float)(radius * Math.Cos(newAngle));
-            X = (float)(radius * Math.Sin(newAngle));
+            float newZ = (float)(Math.Cos(angleRad) * Z - Math.Sin(angleRad) * X);
+            float newX = (float)(Math.Sin(angleRad) * Z + Math.Cos(angleRad) * X);
+
+            Z = newZ;
+            X = newX;
         }
 
         public void RotateZ(float angle)
         {
-            double radius = Math.Sqrt(X * X + Y * Y);
-            double currentAngle = Math.Acos(X / radius);
-
-            if (double.IsNaN(currentAngle))
-            {
-                return;
-            }
-
             // deg to rad
-            double newAngle = currentAngle + (Math.PI / 180) * angle;
+            double angleRad = (Math.PI / 180.0) * angle;
 
-            X = (float)(radius * Math.Cos(newAngle));
-            Y = (float)(radius * Math.Sin(newAngle));
+            float newX = (float)(Math.Cos(angleRad) * X - Math.Sin(angleRad) * Y);
+            float newY = (float)(Math.Sin(angleRad) * X + Math.Cos(angleRad) * Y);
+
+            X = newX;
+            Y = newY;
         }
 
         public void Scale(float factor)

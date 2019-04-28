@@ -82,6 +82,9 @@
     <Content Include="Resources\shuttle.stl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\shuttle_rotated.stl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConverterLibrary\ConverterLibrary.csproj">
