@@ -71,86 +71,109 @@
 
         private static IEnumerable<IMeshOperation> GetMeshOperations(IEnumerable<string> args)
         {
-            List<string> argsList = args.ToList();
+            Queue<string> argsQueue = new Queue<string>(args);
+            List<IMeshOperation> meshOperations = new List<IMeshOperation>();
+
             void Log(string s) => Console.WriteLine(s);
 
-            for (int i = 0; i < argsList.Count; i++)
+            while (argsQueue.Any())
             {
-                string arg = argsList[i];
-
+                string arg = argsQueue.Dequeue();
                 switch (arg.ToLower())
                 {
                     case "volume":
-                        yield return new CalculateVolumeOperation(Log);
+                        meshOperations.Add(new CalculateVolumeOperation(Log));
                         break;
                     case "surface":
-                        yield return new CalculateSurfaceAreaOperation(Log);
+                        meshOperations.Add(new CalculateSurfaceAreaOperation(Log));
                         break;
                     case "tx":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float tx))
-                        {
-                            yield return new TranslateXOperation(tx, Log);
-                        }
-
-                        break;
                     case "ty":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float ty))
-                        {
-                            yield return new TranslateYOperation(ty, Log);
-                        }
-
-                        break;
                     case "tz":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float tz))
-                        {
-                            yield return new TranslateZOperation(tz, Log);
-                        }
-
+                        AddTranslationOperation(arg, argsQueue, meshOperations, Log);
                         break;
                     case "rx":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float rx))
-                        {
-                            yield return new RotateXOperation(rx, Log);
-                        }
-
-                        break;
                     case "ry":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float ry))
-                        {
-                            yield return new RotateYOperation(ry, Log);
-                        }
-
-                        break;
                     case "rz":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float rz))
-                        {
-                            yield return new RotateZOperation(rz, Log);
-                        }
-
+                        AddRotationOperation(arg, argsQueue, meshOperations, Log);
                         break;
                     case "s":
-                        i++;
-                        arg = argsList[i];
-                        if (float.TryParse(arg, NumberStyles.Float, CultureInfo.InvariantCulture, out float s))
-                        {
-                            yield return new ScaleOperation(s, Log);
-                        }
-
+                        AddScaleOperation(argsQueue, meshOperations, Log);
                         break;
                 }
             }
+
+            return meshOperations;
+        }
+
+        private static void AddTranslationOperation(string arg, Queue<string> argsQueue, List<IMeshOperation> meshOperations, Action<string> log)
+        {
+            if (!argsQueue.Any())
+            {
+                return;
+            }
+
+            string nextArg = argsQueue.Dequeue();
+            if (!float.TryParse(nextArg, NumberStyles.Float, CultureInfo.InvariantCulture, out float delta))
+            {
+                return;
+            }
+
+            switch (arg)
+            {
+                case "tx":
+                    meshOperations.Add(new TranslateXOperation(delta, log));
+                    return;
+                case "ty":
+                    meshOperations.Add(new TranslateYOperation(delta, log));
+                    return;
+                case "tz":
+                    meshOperations.Add(new TranslateZOperation(delta, log));
+                    return;
+            }
+        }
+
+        private static void AddRotationOperation(string arg, Queue<string> argsQueue, List<IMeshOperation> meshOperations, Action<string> log)
+        {
+            if (!argsQueue.Any())
+            {
+                return;
+            }
+
+            string nextArg = argsQueue.Dequeue();
+            if (!float.TryParse(nextArg, NumberStyles.Float, CultureInfo.InvariantCulture, out float angle))
+            {
+                return;
+            }
+
+            switch (arg)
+            {
+                case "rx":
+                    meshOperations.Add(new RotateXOperation(angle, log));
+                    return;
+                case "ry":
+                    meshOperations.Add(new RotateYOperation(angle, log));
+                    return;
+                case "rz":
+                    meshOperations.Add(new RotateZOperation(angle, log));
+                    return;
+            }
+        }
+
+        private static void AddScaleOperation(Queue<string> argsQueue, List<IMeshOperation> meshOperations, Action<string> log)
+        {
+            if (!argsQueue.Any())
+            {
+                return;
+            }
+
+            string nextArg = argsQueue.Dequeue();
+            if (!float.TryParse(nextArg, NumberStyles.Float, CultureInfo.InvariantCulture, out float factor))
+            {
+                return;
+            }
+
+            meshOperations.Add(new ScaleOperation(factor, log));
         }
     }
 }
